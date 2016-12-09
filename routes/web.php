@@ -19,9 +19,9 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/koki', 'KokiController@index');
+Route::get('/koki', 'KokiDaftarPesananController@index');
 
-Route::get('/pantry', 'PantryController@index');
+Route::get('/pantry', 'PantryDaftarBahanBakuController@index');
 
 Route::get('/got', [
   'middleware' => ['auth'],

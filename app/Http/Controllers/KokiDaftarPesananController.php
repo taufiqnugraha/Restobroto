@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class KokiController extends Controller
+class KokiDaftarPesananController extends Controller
 {
     public function __construct()
     {
@@ -17,7 +17,7 @@ class KokiController extends Controller
      */
     public function index()
     {
-        return view('restourant.koki');
+        return view('restourant.koki.daftarpesanan');
     }
 
     /**
