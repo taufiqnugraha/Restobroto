@@ -23,6 +23,8 @@ Route::get('/koki', 'KokiDaftarPesananController@index');
 
 Route::get('/pantry', 'PantryDaftarBahanBakuController@index');
 
+Route::get('/pelayan', 'PelayanCekKesediaanMejaController@index');
+
 Route::get('/got', [
   'middleware' => ['auth'],
   'uses' => function () {

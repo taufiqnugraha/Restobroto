@@ -22,6 +22,8 @@ class RedirectIfAuthenticated
                 return redirect('/koki');
             }elseif(Auth::user()->role == 'pantry'){
                 return redirect('/pantry');        
+            }elseif(Auth::user()->role == 'pelayan'){
+                return redirect('/pelayan');        
             }
         }
 

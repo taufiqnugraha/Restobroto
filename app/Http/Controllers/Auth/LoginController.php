@@ -44,6 +44,8 @@ class LoginController extends Controller
             return redirect()->intended('/koki');
         }else if($user->role == 'pantry'){
             return redirect()->intended('/pantry');
-        }              
+        }else if($user->role == 'pelayan'){
+            return redirect()->intended('/pelayan');              
+        }
     }
 }
