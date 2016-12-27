@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Broto - Pelayan</title>
+    <title>Broto - Kasir</title>
 
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/datepicker3.css') }}" rel="stylesheet">
@@ -18,8 +18,7 @@
 	<![endif]-->
 
 	</head>
-
-	@if( Auth::user()->role == 'pelayan' )
+    @if( Auth::user()->role == 'kasir' )
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
@@ -31,7 +30,8 @@
 						<span class="icon-bar"></span>
 					</button>
 
-                    <a class="navbar-brand" href="#"><span>Broto</span>Pelayan</a>
+                    <a class="navbar-brand" href="#"><span>Broto</span>Kasir</a>
+                    
 
 					<ul class="user-menu">
                     @if (Auth::guest())
@@ -65,10 +65,9 @@
 				</div>
 			</form>
 			<ul class="nav menu">
-				<li class="{{ Request::path() == 'pelayan' ? 'active':''}}"><a href="{{ Request::path() == url('/pelayan') ? '#' : url('/pelayan') }}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Ketersediaan Meja</a></li>   
-                <!--<li class="{{ Request::path() == 'tambahpesanan' ? 'active':''}}"><a href="{{ Request::path() == 'tambahpesanan' ? '#':'tambahpesanan'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg></svg> Tambah Pesanan</a></li>-->
-				<li class="{{ Request::path() == 'pesanansiap' ? 'active':''}}"><a href="{{ Request::path() == url('/pesanansiap') ? '#' : url('/pesanansiap') }}"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Pesanan Siap  <span class="badge panel-red">3</span></a></li>
-				<li><a href="forms.html"><svg class="glyph stroked blank document"><use xlink:href="#stroked-blank-document"/></svg> Bill Pembayaran</a></li>
+				<li class="{{ Request::path() == 'kasir' ? 'active':''}}"><a href="{{ Request::path() == 'kasir' ? '#':'kasir'}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Daftar Pesanan <span class="badge panel-red">1</span></a></li>   
+                <li class="{{ Request::path() == 'validasipembayaran' ? 'active':''}}"><a href="{{ Request::path() == 'validasipembayaran' ? '#':'validasipembayaran'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg></svg> Validasi Pembayaran</a></li>
+				<li class="{{ Request::path() == 'pembukuan' ? 'active':''}}"><a href="{{ Request::path() == 'pembukuan' ? '#':'pembukuan'}}"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Pembukuan </a></li>
 			</ul>
 
 		</div><!--/.sidebar-->
@@ -77,7 +76,7 @@
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
             @yield('content')
 		</div>	<!--/.main-->
-	
+
 		<script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('/js/chart.min.js') }}"></script>
@@ -102,10 +101,8 @@
 			$(window).on('resize', function () {
 			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 			})
-		</script>
-
-		
+		</script>	
 	</body>
-	@endif
+    @endif
 
 	</html>

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pelanggan;
+use App\Menu;
+use App\Pesanan;
 use DB;
 
-class PelayanCekKesediaanMejaController extends Controller
+class PelayanTambahPesananController extends Controller
 {
-    public function __construct()
-    {       
+     public function __construct()
+    {
        $this->middleware('auth');
     }
     /**
@@ -19,8 +20,7 @@ class PelayanCekKesediaanMejaController extends Controller
      */
     public function index()
     {
-        $mejas = Pelanggan::all(); 
-        return view('restourant.pelayan.cekkesediaanmeja')->with('mejas', $mejas);
+        return view('restourant.pelayan.tambahpesanan');
     }
 
     /**
@@ -41,7 +41,14 @@ class PelayanCekKesediaanMejaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $pesanan = new Pesanan;
+        $pesanan -> id_pesanan = $request->input('id_pesanan');
+        $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
+        $pesanan -> nomor_meja = $request->input('nomor_meja');
+        $pesanan -> jumlah = 1;
+        $pesanan -> save(); 
+
+        return response()->json($pesanan);
     }
 
     /**
@@ -50,9 +57,16 @@ class PelayanCekKesediaanMejaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($nomor_meja ,$id_pesanan)
     {
-        //
+        $menus = Menu::all();
+        $pesanan = Pesanan::where('id_pesanan', $id_pesanan)->get();
+
+        return view('restourant.pelayan.tambahpesanan')
+                ->with('menus', $menus)
+                ->with('id_pesanan', $id_pesanan)
+                ->with('nomor_meja', $nomor_meja)
+                ->with('pesanan', $pesanan);  
     }
 
     /**
@@ -61,34 +75,10 @@ class PelayanCekKesediaanMejaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editItem(Request $request)
+    public function editPesanan(Request $request)
     {
-        DB::table('pelanggan')
-        ->where('nomor_meja', $request->input('nomor_meja'))
-        ->limit(1)
-        ->update(array('status'=> $request->input('status')));
 
-       /* $meja = Pelanggan::where('nomor_meja', $request->input('nomor_meja'));
-        $meja -> status = $request->input('status');*/
-        
-
-        //if(!$request->status == '1'){
-           // return response()->json();
-        //}
-        
     }
-
-     public function ajax(){
-        ini_set('max_execution_time', 1);
-        $data = Pelanggan::all();
-
-        return response()->json($data);
-            
-                //'nomor_meja' => $data -> nomor_meja,
-                //'status' => $data -> status
-            
-    } 
-
 
     /**
      * Update the specified resource in storage.
@@ -99,7 +89,7 @@ class PelayanCekKesediaanMejaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

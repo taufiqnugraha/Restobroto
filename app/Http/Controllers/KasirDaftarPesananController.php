@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PantryDaftarBahanBakuController extends Controller
+class KasirDaftarPesananController extends Controller
 {
     public function __construct()
     {
@@ -17,7 +17,7 @@ class PantryDaftarBahanBakuController extends Controller
      */
     public function index()
     {
-        return view('restourant.pantry.pantrydaftarbahanbaku');
+        return view('restourant.kasir.daftarpesanan');
     }
 
     /**
