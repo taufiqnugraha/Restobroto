@@ -27,6 +27,7 @@
 
 	</head>
 
+	@if( Auth::user()->role == 'koki' )
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
@@ -85,24 +86,7 @@
 				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Daftar Pesanan</a></li>
 				<li class="{{Request::path()=='bahanbaku' ? 'active':''}}"><a href="{{url('bahanbaku')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Bahan Baku</a></li>
 				<li class="{{Request::path()=='tambahpesanan' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Tambah Pesanan</a></li>
-				<li class="parent ">
-					<ul class="children collapse" id="sub-item-1">
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 1
-							</a>
-						</li>
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 2
-							</a>
-						</li>
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 3
-							</a>
-						</li>
-					</ul>
+
 				</li>
 				<li role="presentation" class="divider"></li>
 				</ul>
@@ -142,5 +126,6 @@
 			})
 		</script>	
 	</body>
+	@endif
 
 	</html>

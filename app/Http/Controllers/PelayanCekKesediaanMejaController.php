@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pelanggan;
+use DB;
 
-class PantryDaftarBahanBakuController extends Controller
+class PelayanCekKesediaanMejaController extends Controller
 {
     public function __construct()
-    {
+    {       
        $this->middleware('auth');
     }
     /**
@@ -17,7 +19,8 @@ class PantryDaftarBahanBakuController extends Controller
      */
     public function index()
     {
-        return view('restourant.pantry.pantrydaftarbahanbaku');
+        $mejas = Pelanggan::all(); 
+        return view('restourant.pelayan.cekkesediaanmeja')->with('mejas', $mejas);
     }
 
     /**
@@ -38,7 +41,7 @@ class PantryDaftarBahanBakuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -58,10 +61,34 @@ class PantryDaftarBahanBakuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editItem(Request $request)
     {
-        //
+        DB::table('pelanggan')
+        ->where('nomor_meja', $request->input('nomor_meja'))
+        ->limit(1)
+        ->update(array('status'=> $request->input('status')));
+
+       /* $meja = Pelanggan::where('nomor_meja', $request->input('nomor_meja'));
+        $meja -> status = $request->input('status');*/
+        
+
+        //if(!$request->status == '1'){
+           // return response()->json();
+        //}
+        
     }
+
+     public function ajax(){
+        ini_set('max_execution_time', 1);
+        $data = Pelanggan::all();
+
+        return response()->json($data);
+            
+                //'nomor_meja' => $data -> nomor_meja,
+                //'status' => $data -> status
+            
+    } 
+
 
     /**
      * Update the specified resource in storage.

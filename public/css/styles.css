@@ -93,8 +93,14 @@ h3, h4 {
 	font-size: 2em;
 }
 
+.medium-large {
+	font-size: 2.5em;
+}
+
+
 .text-muted {
 	color: #9fadbb;
+	text-align: center;
 }
 
 .color-gray { color: #5f6468; }
@@ -396,6 +402,11 @@ a.bg-danger:hover {
 .panel-teal { background: #1ebfae; color: #fff; }
 .panel-orange { background: #ffb53e; color: #fff; }
 .panel-red { background: #f9243f; color: #fff; }
+.panel-gray { background: #EAEAEA; color: #fff; }
+
+.panel-margin-top { 
+	margin-top: 20px;
+}
 
 .panel-blue .panel-body p,
 .panel-teal .panel-body p,
@@ -481,6 +492,7 @@ a.bg-danger:hover {
 .panel-teal .widget-left { background: #1ebfae; color: #fff; }
 .panel-orange .widget-left { background: #ffb53e; color: #fff; }
 .panel-red .widget-left { background: #f9243f; color: #fff; }
+.panel-gray .widget-left { background: #8E8E8E; color: #fff; }
 
 .panel-widget {
 	background: #fff;
@@ -983,8 +995,6 @@ h1.page-header {
 	height: 65px;
 	overflow: scroll;
 }
-
-
 
 
 

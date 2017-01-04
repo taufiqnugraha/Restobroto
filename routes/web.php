@@ -24,8 +24,11 @@ Route::post('/signup', 'UsersController@store');
 //authentication
 Auth::routes();
 Route::get('/home', 'HomeController@index');
+
 Route::get('/koki', 'KokiDaftarPesananController@index');  
  
+Route::get('/koki', 'KokiDaftarPesananController@index');
+Route::get('/kasir', 'KasirDaftarPesananController@index');
 Route::get('/pantry', 'PantryRempahController@index');
 Route::get('/pelayan', 'PelayanCekKesediaanMejaController@index');
 Route::get('/got', [
