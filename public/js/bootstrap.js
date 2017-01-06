@@ -74,7 +74,14 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
+<<<<<<< HEAD
 
+=======
+function myFunction() {
+    var popup = document.getElementById('myPopup');
+    popup.classList.toggle('show');
+}
+>>>>>>> 6ff70a72ff69f608f951acea5e8eb609a32c8a86
 +function ($) {
   'use strict';
 

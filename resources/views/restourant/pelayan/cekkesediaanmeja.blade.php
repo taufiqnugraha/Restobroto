@@ -179,7 +179,7 @@
 				$('#myModal').modal('show');
 			});
 		}	
-        
+
 			$(".actionBtn").click(function(e){
 				e.preventDefault();
 
@@ -206,13 +206,16 @@
 
 				var nomor_meja = $('#nomormeja').val();
                 var id_pesanan = $('#id_pesanan').val();
+                var status = $('#status').val();
 
-                if(id_pesanan != "0"){
-                    window.location.href = "/tambahpesanan/" + nomor_meja + "/" +id_pesanan; 
+                console.log(status);
+
+                if(status != "1"){
+                    window.location.href = "/tambahpesanan/" + nomor_meja + "/" + id_pesanan; 
                 }
 				
 			});
-
+            
 		$(function(){
             realtimeMethod();
         });

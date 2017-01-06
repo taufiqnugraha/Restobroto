@@ -28,3 +28,6 @@ id INT(11) DEFAULT 0,
 FOREIGN KEY (`id`) REFERENCES users(id)
 
 )ENGINE=INNODB;
+
+ALTER TABLE menu ADD jenis_makanan_minuman INT(2) NOT NULL  
+

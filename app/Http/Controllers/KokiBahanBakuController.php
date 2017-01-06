@@ -3,29 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Detail_pesanan;
-use App\Pesanan;
-use App\Menu;
+use App\Http\Requests;
+use App\bahanbakumodel;
 
-class KokiDaftarPesananController extends Controller
+class KokiBahanBakuController extends Controller
 {
-    public function __construct()
-    {
-       $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $detailpesanan = Detail_pesanan::all();
-        $pesanan = Pesanan::join('menu', 'menu.kode_makanan_minuman', 'pesanan.kode_makanan_minuman')->get();
 
-        return view('restourant.koki.daftarpesanan')
-            ->with('detailpesanan', $detailpesanan)
-            ->with('pesanan', $pesanan);
+    public function bahanbaku()
+    {
+        /**
+
+        */
+        $daftar_list = bahanbakumodel::all();
+
+        return view('restourant.koki.bahanbaku')->with('daftar_list', $daftar_list);
+        //return view ('restourant.koki.bahanbaku','daftar_list');
     }
 
     /**
@@ -57,22 +54,7 @@ class KokiDaftarPesananController extends Controller
      */
     public function show($id)
     {
-       
-    }
-
-    public function notification(){
-        ini_set('max_execution_time', 1);
-
-        $data = Detail_pesanan::where('status', 0)->count();
-
-        return response()->json($data);
-    }
-
-    public function daftarPesanan(){
-        ini_set('max_execution_time', 1);
-
-
-        //return response()->json($data);
+        //
     }
 
     /**

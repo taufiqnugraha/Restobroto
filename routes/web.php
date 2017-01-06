@@ -34,6 +34,14 @@ Route::get('/got', [
    echo "You are allowed to view this page!";
 }]);
 
+//koki
+Route::get('/bahanbaku', 'KokiBahanBakuController@bahanbaku');  
+Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');
+Route::get('/notification', 'KokiDaftarPesananController@notification');
+Route::get('/daftarpesanan', 'KokiDaftarPesananController@daftarPesanan');
+
+
+
 //pelayan
 Route::get('/tambahpesanan/{nomor_meja}/{id_pesanan}', 'PelayanTambahPesananController@show');
 Route::get('/pesanansiap', 'PelayanPesananSiapController@index');
@@ -41,6 +49,7 @@ Route::post('/meja/editmeja', 'PelayanCekKesediaanMejaController@editItem');
 Route::get('/ajax', 'PelayanCekKesediaanMejaController@ajax');
 Route::post('/pesanan/editpesanan', 'PelayanTambahPesananController@editPesanan'); 
 Route::post('/pesanan/storepesanan', 'PelayanTambahPesananController@store'); 
+Route::post('/pesanan/simpanpesanan', 'PelayanTambahPesananController@simpanPesanan'); 
 
 //pantry
 Route::get('/sayuran', 'PantrySayuranController@index');

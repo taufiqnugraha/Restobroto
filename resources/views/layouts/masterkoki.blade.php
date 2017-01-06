@@ -9,7 +9,7 @@
          @if (Auth::user()->role == 'koki')
             <title>Broto - Koki</title>
         @elseif (Auth::user()->role == 'pantry')
-            <title>Broto - Pantry</title>
+            <title>Broto - Koki</title>
         @endif 
     @endif
 
@@ -83,37 +83,13 @@
 				</div>
 			</form>
 			<ul class="nav menu">
-				<li ><a href="index.html"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-				<li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>
-				<li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts</a></li>
-				<li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tables</a></li>
-				<li><a href="forms.html"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Forms</a></li>
-				<li><a href="panels.html"><svg class="glyph stroked app-window"><use xlink:href="#stroked-app-window"></use></svg> Alerts &amp; Panels</a></li>
-				<li><a href="icons.html"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Icons</a></li>
-				<li class="parent ">
-					<a href="#">
-						<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown 
-					</a>
-					<ul class="children collapse" id="sub-item-1">
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 1
-							</a>
-						</li>
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 2
-							</a>
-						</li>
-						<li>
-							<a class="" href="#">
-								<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 3
-							</a>
-						</li>
-					</ul>
+
+				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Daftar Pesanan <span class="notification badge panel-red">0<span></a></li>
+				<li class="{{Request::path()=='bahanbaku' ? 'active':''}}"><a href="{{url('bahanbaku')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Bahan Baku</a></li>
+				<li class="{{Request::path()=='tambahpesanan' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Tambah Pesanan</a></li>
+
 				</li>
 				<li role="presentation" class="divider"></li>
-				<li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
 			</ul>
 
 		</div><!--/.sidebar-->
@@ -122,7 +98,9 @@
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
             @yield('content')
 		</div>	<!--/.main-->
-
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+            @yield('pesanan')
+		</div>
 		<script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('/js/chart.min.js') }}"></script>
@@ -148,6 +126,25 @@
 			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 			})
 		</script>	
+		<script>
+			$(function(){
+				realtimeMethodNotification();
+			});
+
+			function realtimeMethodNotification(){
+				$.ajax({
+					url:'{{ url("notification") }}',    
+					data:{_token: '{{ csrf_token() }}'},
+					success:function(data){
+						$('.notification').replaceWith('<span class="notification badge panel-red">'+ data +'<span>');
+						setTimeout(realtimeMethodNotification, 1000);
+					},
+					error:function(){
+						setTimeout(realtimeMethodNotification, 1000);
+					}
+				});
+			}
+		</script>
 	</body>
 	@endif
 

@@ -1,9 +1,10 @@
 @extends('layouts.masterpelayan');
 
 @section('content')
-<button type="submit" class="btn btn-primary">
+<button type="submit" class="btn btn-primary simpan-pesanan" data-idpesanan="{{ $id_pesanan }}">
     Simpan Pesanan
 </button>
+
 <br>
 <br>
 <!--Makanan Pembuka-->
@@ -349,6 +350,24 @@ Minuman Dingin</div>
                 });
             }
 			});
-</script>
 
+            $(".simpan-pesanan").click(function(e){
+				e.preventDefault();
+
+                var id_pesanan = $(this).data('idpesanan');
+
+                console.log(id_pesanan);
+					
+				$.ajax({ 
+					type:'post',
+					url:'{{ url("/pesanan/simpanpesanan") }}',							
+					data:{_token:'{{ csrf_token() }}', 
+							id_pesanan:id_pesanan
+                         },
+					success:function(){
+						window.location.href = "/"; 
+					},
+				});
+			});
+</script>
 @endsection

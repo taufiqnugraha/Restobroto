@@ -80,7 +80,6 @@ class PelayanCekKesediaanMejaController extends Controller
         }
        
 
-     
         
     }
 
