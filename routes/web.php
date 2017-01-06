@@ -25,8 +25,6 @@ Route::post('/signup', 'UsersController@store');
 Auth::routes();
 Route::get('/home', 'HomeController@index');
 
-Route::get('/koki', 'KokiDaftarPesananController@index');  
- 
 Route::get('/koki', 'KokiDaftarPesananController@index');
 Route::get('/kasir', 'KasirDaftarPesananController@index');
 Route::get('/pantry', 'PantryRempahController@index');
