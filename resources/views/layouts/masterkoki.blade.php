@@ -29,6 +29,7 @@
 
 	@if( Auth::user()->role == 'koki' )
 	<body>
+		<input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -132,9 +133,12 @@
 			});
 
 			function realtimeMethodNotification(){
+				var id_user = $('#id-user').val();
+
 				$.ajax({
 					url:'{{ url("notification") }}',    
-					data:{_token: '{{ csrf_token() }}'},
+					data:{_token: '{{ csrf_token() }}',
+							id_user:id_user},
 					success:function(data){
 						$('.notification').replaceWith('<span class="notification badge panel-red">'+ data +'<span>');
 						setTimeout(realtimeMethodNotification, 1000);

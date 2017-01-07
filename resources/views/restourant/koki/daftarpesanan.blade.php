@@ -3,10 +3,11 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+        <input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
         <h2>Daftar Pesanan</h2>
 
        @foreach ($detailpesanan as $dp)
-       @if ($dp->status == 0)
+       @if ($dp->status == 0 && $dp->id == Auth::user()->id)
         <div class="alert bg-primary" role="alert">
             <svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/><span data-toggle="collapse" href="#coba{{ $dp->id_pesanan }}"></use></svg> <b> Meja No {{ substr($dp->id_pesanan, -1) }} </b>  <a href="#" class="pull-right"><input type="submit" class="btn btn-primary form-control" value="Lihat detail pesanan"></span></a>
 
@@ -65,9 +66,12 @@
 			});
 
 			function realtimeMethodDaftarPesanan(){
+                var id_user = $('#id-user').val();
+
 				$.ajax({
 					url:'{{ url("/daftarpesanan") }}',    
-					data:{_token: '{{ csrf_token() }}'},
+					data:{_token: '{{ csrf_token() }}',
+                          id_user:id_user},
 					success:function(data){
 						// $('.notification').replaceWith('<span class="notification badge panel-red">'+ data +'<span>');
 						setTimeout(realtimeMethodDaftarPesanan, 1000);

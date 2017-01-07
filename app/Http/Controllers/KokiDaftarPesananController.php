@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Detail_pesanan;
 use App\Pesanan;
 use App\Menu;
+use App\User;
 
 class KokiDaftarPesananController extends Controller
 {
@@ -60,15 +61,31 @@ class KokiDaftarPesananController extends Controller
        
     }
 
-    public function notification(){
-        ini_set('max_execution_time', 1);
+    public function notification(Request $request){
+        ini_set('max_execution_time', 1); 
 
-        $data = Detail_pesanan::where('status', 0)->count();
+        $data = Detail_pesanan::where('notification', 0)
+                ->where('id', $request->input('id_user'))->count();
 
-        return response()->json($data);
+            return response()->json($data);
+
+       /* while (Detail_pesanan::where('status' , 0)->where('id', $request->input('id_user'))->count() < 1){
+            usleep(1000);
+        }
+
+        if(Detail_pesanan::where('status' , 0)->where('id', $request->input('id_user'))->count() > 0){
+            $dp = Detail_pesanan::where('status' , 0)->where('id', $request->input('id_user'))->first();
+            $id = $dp->id_detail_pesanan;
+            $edit = Detail_pesanan::where('id_detail_pesanan', $id)->first();
+            $edit->status = 1;
+            $edit->save();
+            
+            
+        }*/
+        
     }
 
-    public function daftarPesanan(){
+    public function daftarPesanan(Request $request){
         ini_set('max_execution_time', 1);
 
 

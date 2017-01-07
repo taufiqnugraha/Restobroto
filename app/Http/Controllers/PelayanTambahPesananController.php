@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Menu;
 use App\Pesanan;
 use App\Detail_pesanan;
+use App\Users;
 use DB;
 
 class PelayanTambahPesananController extends Controller
@@ -74,14 +75,18 @@ class PelayanTambahPesananController extends Controller
                 ->with('pesanan', $pesanan);  
     }
 
-
-
     public function simpanPesanan(Request $request){
-        $dp = new Detail_pesanan;
-        $dp -> id_pesanan = $request->input('id_pesanan');
-        $dp -> id = 4;
-        $dp -> status = 0;
-        $dp -> save();
+        $koki = Users::where('role', 'koki')->get();
+
+        foreach ($koki as $item){
+            $dp = new Detail_pesanan;
+            $dp -> id_pesanan = $request->input('id_pesanan');
+            $dp -> id = $item->id;
+            $dp -> status = 0;
+            $dp -> notification = 0;
+            $dp -> save();
+        }
+        
     }
 
     /**
