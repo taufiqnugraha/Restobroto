@@ -24,7 +24,6 @@ Route::post('/signup', 'UsersController@store');
 //authentication
 Auth::routes();
 Route::get('/home', 'HomeController@index');
-
 Route::get('/koki', 'KokiDaftarPesananController@index');
 Route::get('/kasir', 'KasirDaftarPesananController@index');
 Route::get('/pantry', 'PantryRempahController@index');
@@ -34,9 +33,17 @@ Route::get('/got', [
   'uses' => function () {
    echo "You are allowed to view this page!";
 }]);
+
 //koki
+
 Route::get('/bahanbaku', 'KokiBahanBakuController@bahanbaku');  
-Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');  
+Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');
+Route::get('/notification', 'KokiDaftarPesananController@notification');
+Route::get('/daftarpesanan', 'KokiDaftarPesananController@daftarPesanan');
+Route::post ('tambahpesanan/additem', 'KokiTambahPesanan@additem');
+
+
+
 
 //pelayan
 Route::get('/tambahpesanan/{nomor_meja}/{id_pesanan}', 'PelayanTambahPesananController@show');
@@ -45,6 +52,7 @@ Route::post('/meja/editmeja', 'PelayanCekKesediaanMejaController@editItem');
 Route::get('/ajax', 'PelayanCekKesediaanMejaController@ajax');
 Route::post('/pesanan/editpesanan', 'PelayanTambahPesananController@editPesanan'); 
 Route::post('/pesanan/storepesanan', 'PelayanTambahPesananController@store'); 
+Route::post('/pesanan/simpanpesanan', 'PelayanTambahPesananController@simpanPesanan'); 
 
 //pantry
 Route::get('/sayuran', 'PantrySayuranController@index');

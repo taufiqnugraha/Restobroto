@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Menu;
 use App\Pesanan;
+use App\Detail_pesanan;
 use DB;
 
 class PelayanTambahPesananController extends Controller
@@ -40,23 +41,27 @@ class PelayanTambahPesananController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $pesanan = new Pesanan;
-        $pesanan -> id_pesanan = $request->input('id_pesanan');
-        $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
-        $pesanan -> nomor_meja = $request->input('nomor_meja');
-        $pesanan -> jumlah = 1;
-        $pesanan -> save(); 
+    { 
+        if ($request->input('jumlah_pesanan') == 400){
+            $pesanan = new Pesanan;
+            $pesanan -> id_pesanan = $request->input('id_pesanan');
+            $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
+            $pesanan -> nomor_meja = $request->input('nomor_meja');
+            $pesanan -> jumlah = $request->input('jumlah');
+            $pesanan -> save(); 
+        }else{
+            $pesanan = new Pesanan;
+            $pesanan -> id_pesanan = $request->input('id_pesanan');
+            $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
+            $pesanan -> nomor_meja = $request->input('nomor_meja');
+            $pesanan -> jumlah = 1;
+            $pesanan -> save(); 
+        }
 
         return response()->json($pesanan);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($nomor_meja ,$id_pesanan)
     {
         $menus = Menu::all();
@@ -69,6 +74,16 @@ class PelayanTambahPesananController extends Controller
                 ->with('pesanan', $pesanan);  
     }
 
+
+
+    public function simpanPesanan(Request $request){
+        $dp = new Detail_pesanan;
+        $dp -> id_pesanan = $request->input('id_pesanan');
+        $dp -> id = 4;
+        $dp -> status = 0;
+        $dp -> save();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -78,6 +93,34 @@ class PelayanTambahPesananController extends Controller
     public function editPesanan(Request $request)
     {
 
+        if($request->input('jumlah_pesanan') != 400){
+            if($request->input('jumlah_pesanan') == 1 &&  $request->input('jumlah') == -1){
+                Pesanan::where('id_pesanan', $request->input('id_pesanan'))->delete();  
+            }else{
+                Pesanan::where('id_pesanan', '=', $request->input('id_pesanan'))
+                    ->where('kode_makanan_minuman', '=', $request->input('kode_makanan_minuman'))
+                    ->update([ 'jumlah' =>  $request->input('jumlah_pesanan') + $request->input('jumlah')]);    
+            }
+
+            $pesanan = new Pesanan;
+            $pesanan -> id_pesanan = $request->input('id_pesanan');
+            $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
+            $pesanan -> nomor_meja = $request->input('nomor_meja');
+            $pesanan -> jumlah = $request->input('jumlah_pesanan') + $request->input('jumlah');
+        }else{
+            Pesanan::where('id_pesanan', '=', $request->input('id_pesanan'))
+                    ->where('kode_makanan_minuman', '=', $request->input('kode_makanan_minuman'))
+                    ->update([ 'jumlah' =>  $request->input('jumlah') ]);
+
+            $pesanan = new Pesanan;
+            $pesanan -> id_pesanan = $request->input('id_pesanan');
+            $pesanan -> kode_makanan_minuman = $request->input('kode_makanan_minuman');
+            $pesanan -> nomor_meja = $request->input('nomor_meja');
+            $pesanan -> jumlah = $request->input('jumlah');
+        
+        }
+
+        return response()->json($pesanan);
     }
 
     /**

@@ -13,7 +13,7 @@
         <div class="row children" id="sub-item-1">
             @foreach ($mejas as $meja)
                 @if($meja->jumlah == 2) 
-                       <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}">    
+                       <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}" data-idpesanan="{{ $meja->id_pesanan }}">    
                         <div class="col-xs-12 col-md-6 col-lg-3">
                             <div class="panel {{ $meja->status == '0' ? 'panel-teal' : 'panel-gray' }} panel-widget ">
                                 <div class="row no-padding">
@@ -44,7 +44,7 @@
         <div class="row children" id="sub-item-2">
             @foreach ($mejas as $meja)
                 @if($meja->jumlah == 4)
-                   <a id="item{{ $meja->nomor_meja }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" href="#" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}">    
+                    <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}" data-idpesanan="{{ $meja->id_pesanan }}">    
                         <div class="col-xs-12 col-md-6 col-lg-3">
                             <div class="panel {{ $meja->status == '0' ? 'panel-teal' : 'panel-gray' }} panel-widget ">
                                 <div class="row no-padding">
@@ -74,7 +74,7 @@
         <div class="row children" id="sub-item-3">
                @foreach ($mejas as $meja)
                 @if($meja->jumlah == 6)
-                     <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}">    
+                     <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}" data-idpesanan="{{ $meja->id_pesanan }}">    
                         <div class="col-xs-12 col-md-6 col-lg-3">
                             <div class="panel {{ $meja->status == '0' ? 'panel-teal' : 'panel-gray' }} panel-widget ">
                                 <div class="row no-padding">
@@ -103,7 +103,7 @@
         <div class="row children" id="sub-item-8">
             @foreach ($mejas as $meja)
                 @if($meja->jumlah == 8)
-                    <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}">    
+                     <a id="item{{ $meja->nomor_meja }}" onclick="{{ $meja->status == '0' ? 'return gunakanmodal();' : 'return bersihkanmodal();' }}" class="{{ $meja->status == '0' ? 'gunakan-modal' : 'bersihkan-modal' }}" data-nomormeja="{{ $meja->nomor_meja }}" data-status="{{ $meja->status == '0' ? '1' : '0' }}" data-idpesanan="{{ $meja->id_pesanan }}">    
                         <div class="col-xs-12 col-md-6 col-lg-3">
                             <div class="panel {{ $meja->status == '0' ? 'panel-teal' : 'panel-gray' }} panel-widget ">
                                 <div class="row no-padding">
@@ -127,20 +127,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <h4 class="modal-title" id="body"></h4>
                 <input type="hidden" id="nomormeja">
+                <input type="hidden" id="id_pesanan">
                 <input type="hidden" id="status">
                 <input type="hidden" id="link">
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer">  
                 <button type="button" class="btn actionBtn" data-dismiss="modal">
-                    <span id="footer-action-button" class="glyphicon"></span>
+                    <span id="footer-action-button" ></span>
                 </button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">
-                    <span class="glyphicon glyphicon-remove">Batal </span>
+                <button type="button" class="btn actionBtnRight" data-dismiss="modal">
+                    <span id="footer-action-button-right" > </span>
                 </button>
             </div>
         </div>
@@ -152,13 +153,16 @@
 		function gunakanmodal(){
 			$(".gunakan-modal").click(function(){
                 var today = new Date();
+                var id_pesanan =  'i'+ today.getDate() + (today.getMonth()+1) + today.getFullYear() + today.getHours() + $(this).data('nomormeja') + '';
 
-				console.log('dsl');
+				console.log('dsl' + today.getDate() + (today.getMonth()+1) + today.getFullYear() + today.getHours() + $(this).data('nomormeja'));
 				$('#body').text('Gunakan Meja '+ $(this).data('nomormeja') +'');
 				$('#nomormeja').val($(this).data('nomormeja'));
-				$('#link').val('/tambahpesanan/'+ $(this).data('nomormeja') +'/' + today.getDate() + (today.getMonth()+1) + today.getFullYear() + today.getHours() + '0' + $(this).data('nomormeja'));
+				$('#link').val('/tambahpesanan/'+ $(this).data('nomormeja') +'/' + id_pesanan);
+                $('#id_pesanan').val(id_pesanan);
 				$('#status').val($(this).data('status'));
 				$('#footer-action-button').text('Gunakan');
+                $('#footer-action-button-right').text('Batal');
 				$('#myModal').modal('show');
 			});
 		}
@@ -167,7 +171,9 @@
 			$(".bersihkan-modal").click(function(){
 				$('#body').text('Bersihkan Meja '+ $(this).data('nomormeja') +'');
 				$('#footer-action-button').text('Bersihkan');
+                $('#footer-action-button-right').text('Tambah Pesanan');
 				$('#link').val('#');
+                $('#id_pesanan').val($(this).data('idpesanan'));
 				$('#nomormeja').val($(this).data('nomormeja'));
 				$('#status').val($(this).data('status'));
 				$('#myModal').modal('show');
@@ -180,21 +186,36 @@
 				var nomor_meja = $('#nomormeja').val();
 				var status = $('#status').val();
 				var link = $('#link').val();
-				console.log(nomor_meja);
-				console.log(status);
-					///$('.chat-box').append('<div class="alert alert-info">'+ msg +'</div>');
+                var id_pesanan = $('#id_pesanan').val();
+					
 				$.ajax({ 
 					type:'post',
 					url:'{{ url("/meja/editmeja") }}',							
 					data:{_token:'{{ csrf_token() }}', 
 							nomor_meja:nomor_meja,
-							status:status},
+							status:status,
+                            id_pesanan:id_pesanan},
 					success:function(){
 						window.location.href = link; 
 					},
 				});
 			});
 
+            $(".actionBtnRight").click(function(e){
+				e.preventDefault();
+
+				var nomor_meja = $('#nomormeja').val();
+                var id_pesanan = $('#id_pesanan').val();
+                var status = $('#status').val();
+
+                console.log(status);
+
+                if(status != "1"){
+                    window.location.href = "/tambahpesanan/" + nomor_meja + "/" + id_pesanan; 
+                }
+				
+			});
+            
 		$(function(){
             realtimeMethod();
         });
@@ -207,7 +228,7 @@
 					for(var i = 0; i < data.length; i++ ){
 						var item = data[i];  
 					    console.log(item.nomor_meja);
-						$('#item'+ item.nomor_meja).replaceWith('<a id="item'+ item.nomor_meja +'" onclick="'+ (item.status == "0" ? "return gunakanmodal();" : "return bersihkanmodal();") +'" class="'+ (item.status == "0" ? "gunakan-modal" : "bersihkan-modal") +'" data-nomormeja="'+ item.nomor_meja +'" data-status="'+ (item.status == "0" ? "1" : "0") +'"><div class="col-xs-12 col-md-6 col-lg-3"><div class="panel '+ (item.status == "0" ? "panel-teal" : "panel-gray") +' panel-widget "><div class="row no-padding"><div class="col-sm-3 col-lg-5 widget-left"><div class="medium-large"> '+  item.nomor_meja  +' </div></div><div class="col-sm-9 col-lg-7 widget-right"><div class="text-muted">'+ (item.status == "0" ? "Gunakan" : "Bersihkan") +'</div></div></div></div></div></a>');
+						$('#item'+ item.nomor_meja).replaceWith('<a id="item'+ item.nomor_meja +'" onclick="'+ (item.status == "0" ? "return gunakanmodal();" : "return bersihkanmodal();") +'" class="'+ (item.status == "0" ? "gunakan-modal" : "bersihkan-modal") +'" data-nomormeja="'+ item.nomor_meja +'" data-status="'+ (item.status == "0" ? "1" : "0") +'" data-idpesanan="'+ item.id_pesanan +'"><div class="col-xs-12 col-md-6 col-lg-3"><div class="panel '+ (item.status == "0" ? "panel-teal" : "panel-gray") +' panel-widget "><div class="row no-padding"><div class="col-sm-3 col-lg-5 widget-left"><div class="medium-large"> '+  item.nomor_meja  +' </div></div><div class="col-sm-9 col-lg-7 widget-right"><div class="text-muted">'+ (item.status == "0" ? "Gunakan" : "Bersihkan") +'</div></div></div></div></div></a>');
 					}
 				   // $('.chat-box').append('<div class="alert alert-info">'+ data['msg'] +'</div>'); 
                     setTimeout(realtimeMethod, 1000);

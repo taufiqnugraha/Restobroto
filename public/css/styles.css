@@ -11,6 +11,9 @@ body {
 	padding-top: 50px;
 	color: #5f6468;
 }
+<<<<<<< HEAD
+
+=======
 /* Popup container */
 .popup {
     position: relative;
@@ -63,6 +66,7 @@ body {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+>>>>>>> 6ff70a72ff69f608f951acea5e8eb609a32c8a86
 p {
 	color: #777;
 }

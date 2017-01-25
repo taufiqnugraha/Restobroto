@@ -63,18 +63,23 @@ class PelayanCekKesediaanMejaController extends Controller
      */
     public function editItem(Request $request)
     {
-        DB::table('pelanggan')
-        ->where('nomor_meja', $request->input('nomor_meja'))
-        ->limit(1)
-        ->update(array('status'=> $request->input('status')));
+        if($request->input('status') == '1'){
+             DB::table('pelanggan')
+            ->where('nomor_meja', $request->input('nomor_meja'))    
+            ->update([
+                'status'=> $request->input('status'), 
+                'id_pesanan'=> $request->input('id_pesanan')
+            ]);
+        }else{
+             DB::table('pelanggan')
+            ->where('nomor_meja', $request->input('nomor_meja'))    
+            ->update([
+                'status'=> $request->input('status'), 
+                'id_pesanan'=> '0'
+            ]);
+        }
+       
 
-       /* $meja = Pelanggan::where('nomor_meja', $request->input('nomor_meja'));
-        $meja -> status = $request->input('status');*/
-        
-
-        //if(!$request->status == '1'){
-           // return response()->json();
-        //}
         
     }
 

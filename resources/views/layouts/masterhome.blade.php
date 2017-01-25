@@ -10,7 +10,7 @@
 	<link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 
 	<!--Icons-->
-	<script src="{{ asset('/js/lumino.glyphs.js') }}"></script>
+	
 
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
