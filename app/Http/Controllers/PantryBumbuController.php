@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bahan_baku;
 
 class PantryBumbuController extends Controller
 {
@@ -17,7 +18,8 @@ class PantryBumbuController extends Controller
      */
     public function index()
     {
-        return view('restourant.pantry.bumbu');
+        $bumbu = Bahan_baku::where('jenis', 'Bumbu')->get();
+        return view('restourant.pantry.bumbu')->with('bumbu', $bumbu);
     }
 
     /**

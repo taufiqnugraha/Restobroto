@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pelanggan;
+use App\Meja;
 use DB;
 
 class PelayanCekKesediaanMejaController extends Controller
@@ -19,7 +19,7 @@ class PelayanCekKesediaanMejaController extends Controller
      */
     public function index()
     {
-        $mejas = Pelanggan::all(); 
+        $mejas = Meja::all(); 
         return view('restourant.pelayan.cekkesediaanmeja')->with('mejas', $mejas);
     }
 
@@ -64,28 +64,25 @@ class PelayanCekKesediaanMejaController extends Controller
     public function editItem(Request $request)
     {
         if($request->input('status') == '1'){
-             DB::table('pelanggan')
+             DB::table('meja')
             ->where('nomor_meja', $request->input('nomor_meja'))    
             ->update([
                 'status'=> $request->input('status'), 
                 'id_pesanan'=> $request->input('id_pesanan')
             ]);
         }else{
-             DB::table('pelanggan')
+             DB::table('meja')
             ->where('nomor_meja', $request->input('nomor_meja'))    
             ->update([
                 'status'=> $request->input('status'), 
                 'id_pesanan'=> '0'
             ]);
         }
-       
-
-        
     }
 
      public function ajax(){
         ini_set('max_execution_time', 1);
-        $data = Pelanggan::all();
+        $data = Meja::all();
 
         return response()->json($data);
             

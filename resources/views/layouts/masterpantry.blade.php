@@ -15,6 +15,7 @@
 
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/datepicker3.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/bootstrap-table.css') }}" rel="stylesheet"> 
 	<link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 
 	<!--Icons-->
@@ -83,6 +84,8 @@
 				</div>
 			</form>
 			<ul class="nav menu">
+				<li class="{{ Request::path() == 'tambahbahanbaku' ? 'active':''}}"><a href="{{ Request::path() == 'tambahbahanbaku' ? '#':'tambahbahanbaku'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg> Tambah Bahan Baku <span class="badge panel-red"></span></a></li>
+				<hr>
 				<li class="{{ Request::path() == 'pantry' ? 'active':''}}"><a href="{{ Request::path() == 'pantry' ? '#':'pantry'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Rempah <span class="badge panel-red">1</span><span class="badge panel-orange">3</span></a></li>
 				<li class="{{ Request::path() == 'sayuran' ? 'active':''}}"><a href="{{ Request::path() == 'sayuran' ? '#':'sayuran'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Sayuran <span class="badge panel-red">2</span></a></li>
 				<li class="{{ Request::path() == 'buah' ? 'active':''}}"><a href="{{ Request::path() == 'buah' ? '#':'buah'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Buah</a></li>
@@ -103,6 +106,7 @@
 		<script src="{{ asset('/js/chart-data.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart-data.js') }}"></script>
+		<script src="{{ asset('/js/bootstrap-table.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
 		<script>
 			$('#calendar').datepicker({

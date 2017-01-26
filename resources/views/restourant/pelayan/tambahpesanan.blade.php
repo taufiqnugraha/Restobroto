@@ -9,6 +9,7 @@
 <br>
 <!--Makanan Pembuka-->
 <div class="row">
+<input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
 <div class="col-md-12">
 <div class="panel panel-blue">
     <span data-toggle="collapse" href="#sub-item-1"> 
@@ -355,6 +356,7 @@ Minuman Dingin</div>
 				e.preventDefault();
 
                 var id_pesanan = $(this).data('idpesanan');
+                var id = $('#id-user').val();
 
                 console.log(id_pesanan);
 					
@@ -362,7 +364,8 @@ Minuman Dingin</div>
 					type:'post',
 					url:'{{ url("/pesanan/simpanpesanan") }}',							
 					data:{_token:'{{ csrf_token() }}', 
-							id_pesanan:id_pesanan
+							id_pesanan:id_pesanan,
+                            id:id
                          },
 					success:function(){
 						window.location.href = "/"; 

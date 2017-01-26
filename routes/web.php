@@ -39,8 +39,7 @@ Route::get('/bahanbaku', 'KokiBahanBakuController@bahanbaku');
 Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');
 Route::get('/notification', 'KokiDaftarPesananController@notification');
 Route::get('/daftarpesanan', 'KokiDaftarPesananController@daftarPesanan');
-
-
+Route::post('/editdaftarpesanan', 'KokiDaftarPesananController@editDaftarPesanan');
 
 //pelayan
 Route::get('/tambahpesanan/{nomor_meja}/{id_pesanan}', 'PelayanTambahPesananController@show');
@@ -50,6 +49,9 @@ Route::get('/ajax', 'PelayanCekKesediaanMejaController@ajax');
 Route::post('/pesanan/editpesanan', 'PelayanTambahPesananController@editPesanan'); 
 Route::post('/pesanan/storepesanan', 'PelayanTambahPesananController@store'); 
 Route::post('/pesanan/simpanpesanan', 'PelayanTambahPesananController@simpanPesanan'); 
+Route::get('/pelayannotification', 'PelayanPesananSiapController@notification');
+Route::get('/pelayanpesanansiap', 'PelayanPesananSiapController@pesanansiap');
+Route::get('/pesanansudahdiantarkan', 'PelayanPesananSiapController@pesananSudahDiantarkan');
 
 //pantry
 Route::get('/sayuran', 'PantrySayuranController@index');
@@ -57,3 +59,4 @@ Route::get('/bumbu', 'PantryBumbuController@index');
 Route::get('/buah', 'PantryBuahController@index');
 Route::get('/daging', 'PantryDagingController@index');
 Route::get('/bahanpokok', 'PantryBahanPokokController@index');
+Route::get('/tambahbahanbaku', 'PantryBahanBakuController@tambahBahanBaku');

@@ -16,6 +16,7 @@
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
 
 	</head>
 
@@ -67,7 +68,7 @@
 			<ul class="nav menu">
 				<li class="{{ Request::path() == 'pelayan' ? 'active':''}}"><a href="{{ Request::path() == url('/pelayan') ? '#' : url('/pelayan') }}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Ketersediaan Meja</a></li>   
                 <!--<li class="{{ Request::path() == 'tambahpesanan' ? 'active':''}}"><a href="{{ Request::path() == 'tambahpesanan' ? '#':'tambahpesanan'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg></svg> Tambah Pesanan</a></li>-->
-				<li class="{{ Request::path() == 'pesanansiap' ? 'active':''}}"><a href="{{ Request::path() == url('/pesanansiap') ? '#' : url('/pesanansiap') }}"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Pesanan Siap  <span class="badge panel-red">3</span></a></li>
+				<li class="{{ Request::path() == 'pesanansiap' ? 'active':''}}"><a href="{{ Request::path() == url('/pesanansiap') ? '#' : url('/pesanansiap') }}"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Pesanan Siap  <span class="notification badge panel-red">0<span></a></li>
 				<li><a href="forms.html"><svg class="glyph stroked blank document"><use xlink:href="#stroked-blank-document"/></svg> Bill Pembayaran</a></li>
 			</ul>
 
@@ -103,8 +104,28 @@
 			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 			})
 		</script>
+		<script>
+			$(function(){
+				realtimeMethodNotification();
+			});
 
-		
+			function realtimeMethodNotification(){
+				var id = $('#id-user').val();
+
+				$.ajax({
+					url:'{{ url("pelayannotification") }}',    
+					data:{_token: '{{ csrf_token() }}',
+							id:id},
+					success:function(data){
+						$('.notification').replaceWith('<span class="notification badge panel-red">'+ data +'<span>');
+						setTimeout(realtimeMethodNotification, 1000);
+					},
+					error:function(){
+						setTimeout(realtimeMethodNotification, 1000);
+					}
+				});
+			}
+		</script>
 	</body>
 	@endif
 

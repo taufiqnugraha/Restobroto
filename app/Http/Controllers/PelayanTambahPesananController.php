@@ -7,6 +7,9 @@ use App\Menu;
 use App\Pesanan;
 use App\Detail_pesanan;
 use App\Users;
+use App\Resep;
+use App\Bahan_baku;
+use App\bahanbakumodel;
 use DB;
 
 class PelayanTambahPesananController extends Controller
@@ -75,18 +78,33 @@ class PelayanTambahPesananController extends Controller
                 ->with('pesanan', $pesanan);  
     }
 
-    public function simpanPesanan(Request $request){
-        $koki = Users::where('role', 'koki')->get();
-
-        foreach ($koki as $item){
-            $dp = new Detail_pesanan;
-            $dp -> id_pesanan = $request->input('id_pesanan');
-            $dp -> id = $item->id;
-            $dp -> status = 0;
-            $dp -> notification = 0;
-            $dp -> save();
+    public function simpanPesanan(Request $request){    
+        $pesanan = Pesanan::where('id_pesanan', $request->input('id_pesanan'))->get();
+        foreach($pesanan as $item_pesanan){
+            $resep = Resep::where('kode_makanan_minuman', $item_pesanan->kode_makanan_minuman)->get();
+            foreach($resep as $item_resep){
+                 $bahan_baku = Bahan_baku::where('id_bahan_baku', $item_resep->id_bahan_baku)->get()->first();   
+                 Bahan_baku::where('id_bahan_baku', $item_resep->id_bahan_baku)
+                ->update([ 'stok' => $bahan_baku->stok - ($item_resep->qty * $item_pesanan->jumlah) ]);
+            }
         }
         
+        $koki = Users::where('role', 'koki')->get();
+        $count = Detail_pesanan::where('id_pesanan', $request->input('id_pesanan'))->count();
+        if($count == 0){
+            foreach ($koki as $item){
+                $dp = new Detail_pesanan;
+                $dp -> id_pesanan = $request->input('id_pesanan');
+                $dp -> id = $item->id;
+                $dp -> status = 0;
+                $dp -> notification = 0;
+                $dp -> id_pelayan = $request->input('id');
+                $dp -> save();
+            }
+        }else{
+            Detail_pesanan::where('id_pesanan', $request->input('id_pesanan'))
+            ->update([ 'status' => 0, 'notification' => 0 ]);
+        }
     }
 
     /**
