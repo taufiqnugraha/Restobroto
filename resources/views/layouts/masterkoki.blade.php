@@ -146,9 +146,46 @@
 					error:function(){
 						setTimeout(realtimeMethodNotification, 1000);
 					}
-				});
+				}); 
 			}
+
 		</script>
+		<script>
+		$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
+	$("#add").click(function() {
+  $.ajax({
+    type: 'post',
+    url: 'tambahpesanan/additem',
+		
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'nama_makanan_minuman': $('input[name=nama_makanan_minuman]').val(),
+      'jenis_makanan_minuman': $('input[name=jenis_makanan_minuman]').val(),
+	  'harga_makanan_minuman': $('input[name=harga_makanan_minuman]').val()
+    },
+    success: function(data) {
+      if ((data.errors)) {
+        $('.error').removeClass('hidden');
+        $('.error').text(data.errors.title);
+        $('.error').text(data.errors.description);
+      } else {
+        $('.error').remove();
+        $('#table').append("<div class='alert bg-primary' role='alert' ><svg class='glyph stroked clipboard with paper'><use xlink:href='#stroked-clipboard-with-paper'/><span data-toggle='collapse' href='#coba' ></svg>" + data.nama_makanan_minuman + "<a href='#' class='pull-right'><input type='button' data-target='#popup'  data-toggle='modal' class='btn btn-primary form-control' value='Tambah Resep'></a>");
+      }
+    },
+  });
+  $('#nama_makanan_minuman').val('');
+  $('#jenis_makanan_minuman').val('');
+  $('#harga_makanan_minuman').val('');
+});
+
+	</script>
+
+		
 	</body>
 	@endif
 
