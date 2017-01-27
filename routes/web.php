@@ -36,10 +36,13 @@ Route::get('/got', [
 
 //koki
 Route::get('/bahanbaku', 'KokiBahanBakuController@bahanbaku');  
-Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');
+Route::get('/tambahmenu', 'KokiTambahPesanan@tambahpesanan');
 Route::get('/notification', 'KokiDaftarPesananController@notification');
 Route::get('/daftarpesanan', 'KokiDaftarPesananController@daftarPesanan');
 Route::post('/editdaftarpesanan', 'KokiDaftarPesananController@editDaftarPesanan');
+Route::get('/pilihresep/{nama_makanan_minuman}/{jenis_makanan_minuman}', 'KokiPilihResepController@index');
+Route::post('/tambahpesanan/additem', 'KokiTambahPesanan@additem');
+Route::post('/tambahresep', 'KokiPilihResepController@tambahresep');
 
 //pelayan
 Route::get('/tambahpesanan/{nomor_meja}/{id_pesanan}', 'PelayanTambahPesananController@show');
@@ -60,3 +63,7 @@ Route::get('/buah', 'PantryBuahController@index');
 Route::get('/daging', 'PantryDagingController@index');
 Route::get('/bahanpokok', 'PantryBahanPokokController@index');
 Route::get('/tambahbahanbaku', 'PantryBahanBakuController@tambahBahanBaku');
+
+//kasir
+Route::get('/bayarpesanan/{id_pesanan}', 'KasirDaftarPesananController@show');
+Route::post('/bayar', 'KasirDaftarPesananController@store');

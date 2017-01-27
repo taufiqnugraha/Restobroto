@@ -25,6 +25,7 @@ class KokiTambahPesanan extends Controller
             ->with('menutersedia', $menutersedia);
            
     }
+
      public function additem(Request $req) {
       $rules = array(
         'nama_makanan_minuman' => 'required',
@@ -40,8 +41,8 @@ class KokiTambahPesanan extends Controller
         $menutersedia->nama_makanan_minuman = $req->nama_makanan_minuman;
         $menutersedia->jenis_makanan_minuman = $req->jenis_makanan_minuman;
         $menutersedia->harga_makanan_minuman = $req->harga_makanan_minuman;
-        
-        $menutersedia->save();
+        $menutersedia->save(); 
+
         return response()->json($menutersedia);
         
       }

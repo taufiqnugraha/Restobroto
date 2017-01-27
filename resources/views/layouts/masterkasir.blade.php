@@ -65,8 +65,7 @@
 				</div>
 			</form>
 			<ul class="nav menu">
-				<li class="{{ Request::path() == 'kasir' ? 'active':''}}"><a href="{{ Request::path() == 'kasir' ? '#':'kasir'}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Daftar Pesanan <span class="badge panel-red">1</span></a></li>   
-                <li class="{{ Request::path() == 'validasipembayaran' ? 'active':''}}"><a href="{{ Request::path() == 'validasipembayaran' ? '#':'validasipembayaran'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg></svg> Validasi Pembayaran</a></li>
+				<li class="{{ Request::path() == 'kasir' ? 'active':''}}"><a href="{{ Request::path() == 'kasir' ? '#':'kasir'}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Daftar Pesanan <span class="badge panel-red">{{ $notif }}</span></a></li>   
 				<li class="{{ Request::path() == 'pembukuan' ? 'active':''}}"><a href="{{ Request::path() == 'pembukuan' ? '#':'pembukuan'}}"><svg class="glyph stroked bacon burger"><use xlink:href="#stroked-bacon-burger"/></svg> Pembukuan </a></li>
 			</ul>
 

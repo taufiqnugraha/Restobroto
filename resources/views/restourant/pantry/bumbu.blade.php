@@ -15,10 +15,11 @@
                                     <th data-field="stok"  data-sortable="true"><b>Stok</b></th>
                                     <th data-field="updated_at" data-sortable="true"><b>Tgl Penambahan</b></th>
                                     <th data-field="harga" data-sortable="true"><b>Harga</b></th>
+                                    <th data-field="action" data-sortable="true"><b>Action</b></th>
                                 </tr>
 						    </thead>
                             <tbody>
-                               @foreach($bumbu as $item)
+                                @foreach($bumbu as $item)
                                 <tr>
                                     <td  data-checkbox="true"> Item ID </td>
                                     <td  data-sortable="true"> {{ $item->nama_bahan_baku }} </td>
@@ -28,10 +29,10 @@
                                     <td  data-sortable="true">
                                        <ul class="todo-list">
                                             <li class="todo-list-item"> 
-                                            <div class="pull-right action-buttons">
-                                                <a href="#"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg></a>
-                                                <a href="#" class="trash"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"></use></svg></a>
-                                            </div>
+                                                <div class="pull-right action-buttons">
+                                                    <a href="#"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg></a>
+                                                    <a href="#" class="trash"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"></use></svg></a>
+                                                </div>
                                             </li>
                                         </ul>  
                                     </td>
