@@ -161,6 +161,7 @@
                                     <option value="Pantry">Pantry</option>
                                     <option value="Pelayan">Pelayan</option>
                                     <option value="Kasir">Kasir</option>
+                                    <option value="Cs">Customer Service</option>
                                 </select>
                             </div>
                         </div> 

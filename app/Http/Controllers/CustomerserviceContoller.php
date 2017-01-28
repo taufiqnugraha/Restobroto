@@ -1,51 +1,69 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Pertanyaan;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\KokiTambahDataModel;
+use Carbon\Carbon;
 use Validator;
 use Response;
+use DB;
 use Illuminate\Support\Facades\Input;
-
-class KokiTambahPesanan extends Controller
+class CustomerserviceContoller extends Controller
 {
+   public function __construct()
+    {
+       $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function tambahpesanan()
-    {
-        //
-       // return view('restourant.koki.tambahpesanan');
-        $menutersedia = KokiTambahDataModel::all();
-        
-        return view('restourant.koki.tambahpesanan')
-            ->with('menutersedia', $menutersedia);
-           
+    public function index()
+    {				
+        return view('restourant.customerservice.daftarpertanyaan');
     }
-
-     public function additem(Request $req) {
-      $rules = array(
-        'nama_makanan_minuman' => 'required',
-        'jenis_makanan_minuman' => 'required'
+     public function olahkuisioner()
+    {	
+        $today = Carbon::today();
+        $collection = Pertanyaan::select(DB::raw('year(updated_at) as year'),
+        DB::raw('DATE_FORMAT(updated_at,"%M") as month'),
+        DB::raw('avg(pertanyaan1) as pertanyaan1'),
+        DB::raw('avg(pertanyaan2) as pertanyaan2'),
+        DB::raw('avg(pertanyaan3) as pertanyaan3'))
+        ->groupBy('month')
+        ->orderBy('month','ASC')->get();
+        
+        return view('restourant.customerservice.olahpertanyaan')->with('collection',$collection);
+    }
+    public function tambahKuisioner(Request $req){
+        $rules = array(
+        'pertanyaan1' => 'required',
+        'pertanyaan2' => 'required',
+        'pertanyaan3' => 'required',
+        'saran' => 'required'
+       
+       
       );
       // for Validator
       $validator = Validator::make ( Input::all (), $rules );
       if ($validator->fails())
       return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-
       else {
-        $menutersedia = new KokiTambahDataModel();
-        $menutersedia->nama_makanan_minuman = $req->nama_makanan_minuman;
-        $menutersedia->jenis_makanan_minuman = $req->jenis_makanan_minuman;
-        $menutersedia->harga_makanan_minuman = $req->harga_makanan_minuman;
-        $menutersedia->save(); 
+        $pertanyaan = new Pertanyaan();
+        $pertanyaan->pertanyaan1 = $req->pertanyaan1;
+        $pertanyaan->pertanyaan2 = $req->pertanyaan2;
+        $pertanyaan->pertanyaan3 = $req->pertanyaan3;
+        $pertanyaan->saran = $req->saran;
+        $pertanyaan->save(); 
 
-        return response()->json($menutersedia);
+        return view('restourant.customerservice.daftarpertanyaan');
         
-      }
+      }   
+    }
+    public function pertanyaan()
+    {
+
     }
 
     /**
@@ -56,9 +74,6 @@ class KokiTambahPesanan extends Controller
     public function create()
     {
         //
-         return view('restourant.koki.tambahpesanan');
-         
-
     }
 
     /**
@@ -69,7 +84,7 @@ class KokiTambahPesanan extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -80,6 +95,7 @@ class KokiTambahPesanan extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**

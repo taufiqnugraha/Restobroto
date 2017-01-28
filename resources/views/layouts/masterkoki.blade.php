@@ -85,14 +85,13 @@
 			</form>
 			<ul class="nav menu">
 
-				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Daftar Pesanan <span class="notification badge panel-red">0<span></a></li>
+				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Daftar Pesanan <span class="notification badge panel-red">0<span></a></li>
 				<li class="{{Request::path()=='bahanbaku' ? 'active':''}}"><a href="{{url('bahanbaku')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Bahan Baku</a></li>
-				<li class="{{Request::path()=='tambahpesanan' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Tambah Pesanan</a></li>
+				<li class="{{Request::path()=='tambahmenu' ? 'active':''}}"><a href="{{url('tambahmenu')}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg> Tambah Menu</a></li>
 
 				</li>
 				<li role="presentation" class="divider"></li>
 			</ul>
-
 		</div><!--/.sidebar-->
         @endif    
 
@@ -164,7 +163,7 @@
     data: {
       '_token': $('input[name=_token]').val(),
       'nama_makanan_minuman': $('input[name=nama_makanan_minuman]').val(),
-      'jenis_makanan_minuman': $('input[name=jenis_makanan_minuman]').val(),
+      'jenis_makanan_minuman': $("#jenis_makanan_minuman option").filter(":selected").val(),
 	  'harga_makanan_minuman': $('input[name=harga_makanan_minuman]').val()
     },
     success: function(data) {
@@ -172,10 +171,11 @@
         $('.error').removeClass('hidden');
         $('.error').text(data.errors.title);
         $('.error').text(data.errors.description);
-      } else {
+      } else {  
         $('.error').remove();
         $('#table').append("<div class='alert bg-primary' role='alert' ><svg class='glyph stroked clipboard with paper'><use xlink:href='#stroked-clipboard-with-paper'/><span data-toggle='collapse' href='#coba' ></svg>" + data.nama_makanan_minuman + "<a href='#' class='pull-right'><input type='button' data-target='#popup'  data-toggle='modal' class='btn btn-primary form-control' value='Tambah Resep'></a>");
-      }
+		window.location.href = "/pilihresep/"+ data.nama_makanan_minuman +"/"+ data.jenis_makanan_minuman; 
+	  }
     },
   });
   $('#nama_makanan_minuman').val('');
@@ -184,9 +184,7 @@
 });
 
 	</script>
-
 		
 	</body>
 	@endif
-
 	</html>

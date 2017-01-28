@@ -76,7 +76,7 @@
                 <svg class="glyph stroked empty-message"> 
                     <span data-toggle="collapse" href="#coba{{ $dp->id_pesanan }}"><use xlink:href="#stroked-empty-message"></use></span>
                 </svg>
-                <a href="#" class="pull-right">    
+                <a class="pull-right">    
                     <input type="button" data-toggle="modal" data-idpesanan="{{ $dp->id_pesanan }}" data-nomormeja="{{ substr($dp->id_pesanan, -1) }}" onclick="return antarkanModal();" class="antarkan-modal btn btn-primary form-control" value="Pesanan siap diantarkan">
                 </a>
             </ul>

@@ -6,8 +6,8 @@
     @if (Auth::guest())
         <title>RestoBroto</title>
     @else
-         @if (Auth::user()->role == 'koki')
-            <title>Broto - Koki</title>
+         @if (Auth::user()->role == 'cs')
+            <title>Broto - Customer Service</title>
         @elseif (Auth::user()->role == 'pantry')
             <title>Broto - Koki</title>
         @endif 
@@ -16,7 +16,8 @@
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/datepicker3.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
-
+	<script src="{{ asset('/js/bootstrap-table.js') }}"></script>
+	<link href="{{ asset('/css/bootstrap-table.css') }}" rel="stylesheet"> 
 	<!--Icons-->
 	<script src="{{ asset('/js/lumino.glyphs.js') }}"></script>
 
@@ -27,7 +28,7 @@
 
 	</head>
 
-	@if( Auth::user()->role == 'koki' )
+	@if( Auth::user()->role == 'cs' )
 	<body>
 		<input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -43,8 +44,8 @@
                    @if (Auth::guest())
                      <a class="navbar-brand" href="#"><span>Resto</span>Broto</a>
                    @else
-                        @if (Auth::user()->role == 'koki')
-                            <a class="navbar-brand" href="#"><span>Broto</span>Koki</a>
+                        @if (Auth::user()->role == 'cs')
+                            <a class="navbar-brand" href="#"><span>Broto</span>Customer Service</a>
                         @elseif (Auth::user()->role == 'pantry')
                             <a class="navbar-brand" href="#"><span>Broto</span>Pantry</a>
                         @endif  
@@ -85,9 +86,9 @@
 			</form>
 			<ul class="nav menu">
 
-				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Daftar Pesanan <span class="notification badge panel-red">0<span></a></li>
-				<li class="{{Request::path()=='bahanbaku' ? 'active':''}}"><a href="{{url('bahanbaku')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Bahan Baku</a></li>
-				<li class="{{Request::path()=='tambahpesanan' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Tambah Pesanan</a></li>
+				<li class="{{Request::path()=='customerservice' ? 'active':''}}"><a href="{{url('customerservice')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Tambah Kuisioner<span class="notification badge panel-red">0<span></a></li>
+				<li class="{{Request::path()=='olahkuisioner' ? 'active':''}}"><a href="{{url('olahkuisioner')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Olah Kuisioner</a></li>
+				<li class="{{Request::path()=='report' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Report</a></li>
 
 				</li>
 				<li role="presentation" class="divider"></li>
@@ -99,17 +100,39 @@
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
             @yield('content')
 		</div>	<!--/.main-->
-		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
-            @yield('pesanan')
-		</div>
-		<script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
+
+			<script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('/js/chart.min.js') }}"></script>
 		<script src="{{ asset('/js/chart-data.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart-data.js') }}"></script>
+		<script src="{{ asset('/js/bootstrap-table.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
-	</body>
+		<script>
+			$('#calendar').datepicker({
+			});
+
+			!function ($) {
+				$(document).on("click","ul.nav li.parent > a > span.icon", function(){          
+					$(this).find('em:first').toggleClass("glyphicon-minus");      
+				}); 
+				$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+			}(window.jQuery);
+
+			$(window).on('resize', function () {
+			if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+			})
+			$(window).on('resize', function () {
+			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+			})
+		</script>	
+
+	
+	
+
+		
 	@endif
+	</body>
 
 	</html>

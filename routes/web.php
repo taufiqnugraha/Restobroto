@@ -28,6 +28,8 @@ Route::get('/koki', 'KokiDaftarPesananController@index');
 Route::get('/kasir', 'KasirDaftarPesananController@index');
 Route::get('/pantry', 'PantryRempahController@index');
 Route::get('/pelayan', 'PelayanCekKesediaanMejaController@index');
+Route::get('/customerservice', 'CustomerserviceContoller@index');
+
 Route::get('/got', [
   'middleware' => ['auth'],
   'uses' => function () {
@@ -36,10 +38,13 @@ Route::get('/got', [
 
 //koki
 Route::get('/bahanbaku', 'KokiBahanBakuController@bahanbaku');  
-Route::get('/tambahpesanan', 'KokiTambahPesanan@tambahpesanan');
+Route::get('/tambahmenu', 'KokiTambahPesanan@tambahpesanan');
 Route::get('/notification', 'KokiDaftarPesananController@notification');
 Route::get('/daftarpesanan', 'KokiDaftarPesananController@daftarPesanan');
 Route::post('/editdaftarpesanan', 'KokiDaftarPesananController@editDaftarPesanan');
+Route::get('/pilihresep/{nama_makanan_minuman}/{jenis_makanan_minuman}', 'KokiPilihResepController@index');
+Route::post('/tambahpesanan/additem', 'KokiTambahPesanan@additem');
+Route::post('/tambahresep', 'KokiPilihResepController@tambahresep');
 
 //pelayan
 Route::get('/tambahpesanan/{nomor_meja}/{id_pesanan}', 'PelayanTambahPesananController@show');
@@ -60,6 +65,7 @@ Route::get('/buah', 'PantryBuahController@index');
 Route::get('/daging', 'PantryDagingController@index');
 Route::get('/bahanpokok', 'PantryBahanPokokController@index');
 Route::get('/tambahbahanbaku', 'PantryBahanBakuController@tambahBahanBaku');
+
 Route::post('/registerPantry', 'PantryBahanBakuController@registerPantry');
 Route::post('/deleteRempah', 'PantryRempahController@deleteItemRempah');
 Route::post('/editRempah', 'PantryRempahController@editItemRempah');
@@ -78,3 +84,10 @@ Route::post('/deletebumbu', 'PantryBumbuController@deleteItemRempah');
 
 Route::post('/deletedaging', 'PantryDagingController@deleteItemRempah');
 
+//kasir
+Route::get('/bayarpesanan/{id_pesanan}', 'KasirDaftarPesananController@show');
+Route::post('/bayar', 'KasirDaftarPesananController@store');
+
+//Kuisioner
+Route::get('/olahkuisioner', 'CustomerserviceContoller@olahkuisioner');
+Route::post('/tambahkuisioner','CustomerserviceContoller@tambahKuisioner');
