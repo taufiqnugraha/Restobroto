@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Tambah Bahan Baku</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="POST" action="{{url('/registerPantry')}}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="addItemPantry">
                                     Selesai
                                 </button>
                             </div>

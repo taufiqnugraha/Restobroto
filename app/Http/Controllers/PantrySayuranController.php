@@ -21,6 +21,11 @@ class PantrySayuranController extends Controller
         $sayuran = Bahan_baku::where('jenis', 'Sayuran')->get();
         return view('restourant.pantry.sayuran')->with('sayuran', $sayuran);
     }
+     public function deleteItemRempah(Request $req) {
+        Bahan_baku::where('id_bahan_baku', $req->id_bahan_baku)->delete();
+        $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
+       return view('restourant.pantry.bumbu')->with('rempah', $rempah);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -21,6 +21,12 @@ class PantryDagingController extends Controller
         $daging = Bahan_baku::where('jenis', 'Daging')->get();
         return view('restourant.pantry.daging')->with('daging', $daging);
     }
+    public function deleteItemRempah(Request $req) {
+        Bahan_baku::where('id_bahan_baku', $req->id_bahan_baku)->delete();
+        $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
+       return view('restourant.pantry.bumbu')->with('rempah', $rempah);
+    }
+
 
     /**
      * Show the form for creating a new resource.

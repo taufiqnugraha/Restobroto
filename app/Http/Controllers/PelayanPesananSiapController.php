@@ -60,8 +60,8 @@ class PelayanPesananSiapController extends Controller
 
                 return response()->json($pesanan);
             }else{
-                Detail_pesanan::where('id_detail_pesanan', $id)
-                    ->update([ 'status' => 3 ]);
+                    Detail_pesanan::where('id_detail_pesanan', $id)
+                        ->update([ 'status' => 3 ]);
                 $edit = Detail_pesanan::where('id_detail_pesanan', $id)->first();
                 $edit->status = 3;
 

@@ -60,3 +60,21 @@ Route::get('/buah', 'PantryBuahController@index');
 Route::get('/daging', 'PantryDagingController@index');
 Route::get('/bahanpokok', 'PantryBahanPokokController@index');
 Route::get('/tambahbahanbaku', 'PantryBahanBakuController@tambahBahanBaku');
+Route::post('/registerPantry', 'PantryBahanBakuController@registerPantry');
+Route::post('/deleteRempah', 'PantryRempahController@deleteItemRempah');
+Route::post('/editRempah', 'PantryRempahController@editItemRempah');
+Route::get('/edit', 'PantryRempahController@viewRempah');
+Route::post('/deleteRempah', 'PantryRempahController@deleteItemRempah');
+Route::post('/editRempah', 'PantryRempahController@editItemRempah');
+Route::get('/edit', 'PantryRempahController@viewRempah');
+
+Route::post('/deletepokok', 'PantryBahanPokokController@deleteItemRempah');
+
+Route::post('/deletebuah', 'PantryBuahController@deleteItemRempah');
+
+Route::post('/deletesayuran', 'PantrySayuranController@deleteItemRempah');
+
+Route::post('/deletebumbu', 'PantryBumbuController@deleteItemRempah');
+
+Route::post('/deletedaging', 'PantryDagingController@deleteItemRempah');
+

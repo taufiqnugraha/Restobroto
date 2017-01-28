@@ -21,6 +21,12 @@ class PantryBumbuController extends Controller
         $bumbu = Bahan_baku::where('jenis', 'Bumbu')->get();
         return view('restourant.pantry.bumbu')->with('bumbu', $bumbu);
     }
+    public function deleteItemRempah(Request $req) {
+        Bahan_baku::where('id_bahan_baku', $req->id_bahan_baku)->delete();
+        $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
+       return view('restourant.pantry.bumbu')->with('rempah', $rempah);
+    }
+
 
     /**
      * Show the form for creating a new resource.

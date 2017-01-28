@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html>
 	<head>
 	<meta charset="utf-8">
@@ -9,13 +9,12 @@
          @if (Auth::user()->role == 'koki')
             <title>Broto - Koki</title>
         @elseif (Auth::user()->role == 'pantry')
-            <title>Broto - Pantry</title>
+            <title>Broto - Koki</title>
         @endif 
     @endif
 
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/datepicker3.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/bootstrap-table.css') }}" rel="stylesheet"> 
 	<link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 
 	<!--Icons-->
@@ -28,8 +27,9 @@
 
 	</head>
 
-	@if( Auth::user()->role == 'pantry' )
+	@if( Auth::user()->role == 'koki' )
 	<body>
+		<input id="id-user" type="hidden" value="{{ Auth::user()->id }}"></input>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -84,88 +84,31 @@
 				</div>
 			</form>
 			<ul class="nav menu">
-				<li class="{{ Request::path() == 'tambahbahanbaku' ? 'active':''}}"><a href="{{ Request::path() == 'tambahbahanbaku' ? '#':'tambahbahanbaku'}}"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"/></svg> Tambah Bahan Baku <span class="badge panel-red"></span></a></li>
-				<hr>
-				<li class="{{ Request::path() == 'pantry' ? 'active':''}}"><a href="{{ Request::path() == 'pantry' ? '#':'pantry'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Rempah <span class="badge panel-red">1</span><span class="badge panel-orange">3</span></a></li>
-				<li class="{{ Request::path() == 'sayuran' ? 'active':''}}"><a href="{{ Request::path() == 'sayuran' ? '#':'sayuran'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Sayuran <span class="badge panel-red">2</span></a></li>
-				<li class="{{ Request::path() == 'buah' ? 'active':''}}"><a href="{{ Request::path() == 'buah' ? '#':'buah'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Buah</a></li>
-				<li class="{{ Request::path() == 'daging' ? 'active':''}}"><a href="{{ Request::path() == 'daging' ? '#':'daging'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Daging</a></li>
-				<li class="{{ Request::path() == 'bumbu' ? 'active':''}}"><a href="{{ Request::path() == 'bumbu' ? '#':'bumbu'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Bumbu</a></li>
-				<li class="{{ Request::path() == 'bahanpokok' ? 'active':''}}"><a href="{{ Request::path() == 'bahanpokok' ? '#':'bahanpokok'}}"><svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg> Bahan Pokok</a></li>
+
+				<li class="{{Request::path()=='koki' ? 'active':''}}"><a href="{{url('koki')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Daftar Pesanan <span class="notification badge panel-red">0<span></a></li>
+				<li class="{{Request::path()=='bahanbaku' ? 'active':''}}"><a href="{{url('bahanbaku')}}"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Bahan Baku</a></li>
+				<li class="{{Request::path()=='tambahpesanan' ? 'active':''}}"><a href="{{url('tambahpesanan')}}"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"/></svg></use></svg> Tambah Pesanan</a></li>
+
+				</li>
+				<li role="presentation" class="divider"></li>
 			</ul>
+
 		</div><!--/.sidebar-->
         @endif    
 
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
             @yield('content')
 		</div>	<!--/.main-->
-
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+            @yield('pesanan')
+		</div>
 		<script src="{{ asset('/js/jquery-1.11.1.min.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ asset('/js/chart.min.js') }}"></script>
 		<script src="{{ asset('/js/chart-data.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart.js') }}"></script>
 		<script src="{{ asset('/js/easypiechart-data.js') }}"></script>
-		<script src="{{ asset('/js/bootstrap-table.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
-		<script>
-			$('#calendar').datepicker({
-			});
-
-			!function ($) {
-				$(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-					$(this).find('em:first').toggleClass("glyphicon-minus");      
-				}); 
-				$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-			}(window.jQuery);
-
-			$(window).on('resize', function () {
-			if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-			})
-			$(window).on('resize', function () {
-			if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-			})
-		</script>	
-	<script>
-		$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-	});
-		$("#addItemPantry").click(function() {
-	$.ajax({
-		type: 'post',
-		url: '/registerPantry',
-			
-		data: {
-		'_token': $('input[name=_token]').val(),
-		'nama_bahan_baku': $('input[name=nama_bahan_baku]').val(),
-		'stok': $('input[name=stok]').val(),
-		'harga': $('input[name=harga]').val(),
-		'jenis': $('input[name=jenis]').val(),
-		'satuan': $('input[name=satuan]').val()
-		},
-		success: function(data) {
-		if ((data.errors)) {
-			$('.error').removeClass('hidden');
-			$('.error').text(data.errors.title);
-			$('.error').text(data.errors.description);
-		} else {
-			$('.error').remove();
-			
-		}
-		},
-	});
-	$('#nama_bahan_baku').val('');
-	$('#stok').val('');
-	$('#harga').val('');
-	$('#jenis').val('');
-	$('#satuan').val('');
-	});
-
-	
-	</script>
-		
 	</body>
 	@endif
 

@@ -22,7 +22,37 @@ class PantryRempahController extends Controller
         $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
         return view('restourant.pantry.rempah')->with('rempah', $rempah);
     }
+    public function deleteItemRempah(Request $req) {
+        Bahan_baku::where('id_bahan_baku', $req->id_bahan_baku)->delete();
+        $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
+       return view('restourant.pantry.rempah')->with('rempah', $rempah);
+    }
 
+    public function editItemRempah(Request $req) {
+      $rempah = Bahan_baku::where ($req->id_bahan_baku);
+      $rempah = Bahan_baku::where('jenis', 'Rempah')->get();
+     
+      $rempah->nama_bahan_baku = $req->nama_bahan_baku;
+      $rempah->stok = $req->stok;
+      $rempah->harga = $req->harga;
+      $rempah->jenis = $req->jenis;
+      $rempah->satuan = $req->satuan;
+   
+      Bahan_baku::where('id_bahan_baku', $req->id_bahan_baku)
+                    ->update(['nama_bahan_baku' =>  $req->nama_bahan_baku 
+                              ,'stok' => $req->stok 
+                                ,'harga' => $req->harga
+                                ,'jenis' => $req->jenis
+                                ,'satuan' => $req->satuan
+                            ]);
+      return view('restourant.pantry.rempah')->with('rempah', $rempah);
+    }
+
+    public function viewRempah(Request $req) {
+      $rempah = Bahan_baku::where('id_bahan_baku',$req->id_bahan_baku)->get()->first();
+
+      return view('restourant.pantry.edit')->with('rempah', $rempah);
+    }
     /**
      * Show the form for creating a new resource.
      *

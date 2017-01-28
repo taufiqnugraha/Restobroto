@@ -31,6 +31,19 @@
                                             <div class="pull-right action-buttons">
                                                 <a href="#"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg></a>
                                                 <a href="#" class="trash"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"></use></svg></a>
+                                                <form method="get" action="{{url('edit')}}">
+                                                    <input type="hidden" name="id_bahan_baku" value="{{ $item->id_bahan_baku }}">
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                    </a>
+                                                </form>
+                                                <form method="post" action="{{url('/deletebumbu')}}">
+                                                    <div class="form-group">
+                                                    
+                                                    <input type="hidden" name="id_bahan_baku" value="{{ $item->id_bahan_baku }}">
+                                                    <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                    </div>
+                                                </form>    
                                             </div>
                                             </li>
                                         </ul>  
